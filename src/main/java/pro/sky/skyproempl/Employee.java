@@ -1,9 +1,9 @@
 package pro.sky.skyproempl;
 
-import org.springframework.stereotype.Service;
+
 import java.lang.String;
 import java.util.Objects;
-@Service
+
 public class Employee {
 
     private String firstName;
@@ -36,9 +36,6 @@ public class Employee {
     public String toString() {
         return String.format("%s %s",
                 firstName, lastName);
-    }
-    public String createKey (Employee e){
-        return e.firstName+e.lastName;
     }
 
 }

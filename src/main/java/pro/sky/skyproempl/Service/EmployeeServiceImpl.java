@@ -35,15 +35,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName) {
+    public String addEmployee(String firstName, String lastName) {
         Employee e = new Employee(firstName, lastName);
+        String k=firstName+lastName;
         if (employees.size() >= employeeAmount) {
             throw new EmployeeStorageIsFullException();
         } else if (employees.containsValue(e)) {
             throw new EmployeeAlreadyAddedException();
-        } else {
-            employees.put(e.createKey(e),e);
         }
+        else {
+            employees.put(k,e);
+            return "add";
+        }
+
     }
 
     @Override
@@ -56,8 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void removeEmployee(String firstName, String lastName) {
-        Employee e = findEmployee(firstName,lastName);
-        employees.remove(firstName+lastName);
+                employees.remove(firstName+lastName);
 
     }
 }
