@@ -19,9 +19,10 @@ public class EmployeeController {
         return employeeServiceImpl.printAllEmployee();
     }
     @GetMapping("/add")
-    public String addEmployee(@RequestParam (value = "firstName") String firstName,
-                            @RequestParam (value = "lastName") String lastName){
-        return employeeServiceImpl.addEmployee(firstName,lastName);
+    public void addEmployee(@RequestParam (value = "firstName") String firstName,
+                            @RequestParam (value = "lastName") String lastName)
+    {
+        employeeServiceImpl.addEmployee(firstName,lastName);
     }
 
     @GetMapping("/find")

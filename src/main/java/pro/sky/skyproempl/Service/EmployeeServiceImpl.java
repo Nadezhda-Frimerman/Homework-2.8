@@ -5,6 +5,8 @@ import pro.sky.skyproempl.Employee;
 import pro.sky.skyproempl.Exception.EmployeeAlreadyAddedException;
 import pro.sky.skyproempl.Exception.EmployeeNotFoundException;
 import pro.sky.skyproempl.Exception.EmployeeStorageIsFullException;
+
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -16,11 +18,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Map<String,Employee> employees;
 
     public EmployeeServiceImpl() {
-        this.employees = Map.of(
+        this.employees = new HashMap<>(Map.of(
                 "ОльгаКарманова", new Employee("Ольга", "Карманова"),
                 "ИванПетров", new Employee("Иван", "Петров"),
                 "НатальяАронова", new Employee("Наталья", "Аронова"),
-                "АнтонПиков", new Employee("Антон", "Пиков"));
+                "АнтонПиков", new Employee("Антон", "Пиков")));
         this.employeeAmount=10;
     }
 
@@ -35,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName) {
+    public void addEmployee(String firstName, String lastName) {
         Employee e = new Employee(firstName, lastName);
         String k=firstName+lastName;
         if (employees.size() >= employeeAmount) {
@@ -45,7 +47,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         else {
             employees.put(k,e);
-            return "add";
         }
 
     }
@@ -53,14 +54,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         if (employees.containsKey(firstName+lastName)){
-                return employees.get(firstName+lastName);
-            }
+            return employees.get(firstName+lastName);
+        }
         else throw new EmployeeNotFoundException();
     }
 
     @Override
     public void removeEmployee(String firstName, String lastName) {
-                employees.remove(firstName+lastName);
+        employees.remove(firstName+lastName);
 
     }
 }

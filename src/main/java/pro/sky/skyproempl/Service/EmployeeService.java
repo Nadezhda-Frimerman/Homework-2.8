@@ -8,7 +8,7 @@ public interface EmployeeService {
 
     String printAllEmployee();
 
-    String addEmployee(String firstName, String lastName);
+    void addEmployee(String firstName, String lastName);
 
     Employee findEmployee(String firstName, String lastName);
 
