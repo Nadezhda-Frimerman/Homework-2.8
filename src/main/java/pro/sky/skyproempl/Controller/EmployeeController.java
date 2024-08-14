@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.skyproempl.Service.EmployeeService;
 import pro.sky.skyproempl.Service.EmployeeServiceImpl;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping ("/employee")
 public class EmployeeController {
@@ -15,14 +17,16 @@ public class EmployeeController {
         this.employeeServiceImpl = employeeServiceImpl;
     }
     @GetMapping (path = "/print")
-    public String printEmployees(){
+    public Collection printEmployees(){
         return employeeServiceImpl.printAllEmployee();
     }
     @GetMapping("/add")
     public void addEmployee(@RequestParam (value = "firstName") String firstName,
-                            @RequestParam (value = "lastName") String lastName)
+                            @RequestParam (value = "lastName") String lastName,
+                            @RequestParam(value = "department") int department,
+                            @RequestParam (value = "salary") double salary)
     {
-        employeeServiceImpl.addEmployee(firstName,lastName);
+        employeeServiceImpl.addEmployee(firstName,lastName, department, salary);
     }
 
     @GetMapping("/find")

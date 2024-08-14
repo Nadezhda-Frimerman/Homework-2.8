@@ -8,12 +8,15 @@ public class Employee {
 
     private String firstName;
     private String lastName;
+    private int department;
+    private double salary;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int department, double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = department;
+        this.salary = salary;
     }
-
     public String getLastName() {
         return lastName;
     }
@@ -23,7 +26,7 @@ public class Employee {
     }
 
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, lastName, department,salary);
     }
 
     public boolean equals(Object a) {
@@ -31,11 +34,23 @@ public class Employee {
         if (a == null || getClass() != a.getClass()) return false;
         Employee employee = (Employee) a;
         return Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(lastName, employee.lastName);
+                Objects.equals(lastName, employee.lastName)&&
+                department==employee.department&&
+                Double.compare(salary,employee.salary)==0;
     }
     public String toString() {
-        return String.format("%s %s",
-                firstName, lastName);
+        return firstName+" "+lastName+" "+"department: "+department+" salary: "+salary;
     }
 
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
 }
