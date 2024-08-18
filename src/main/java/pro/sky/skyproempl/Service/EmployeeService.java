@@ -4,13 +4,15 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyproempl.Employee;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public interface EmployeeService {
     int getEmployeeAmount();
 
-    Collection printAllEmployee();
-    String createKey (String firstName, String lastName);
+    List<Employee> findAllEmployees();
+
+    String createKey(String firstName, String lastName);
 
     String createKey(Employee e);
 

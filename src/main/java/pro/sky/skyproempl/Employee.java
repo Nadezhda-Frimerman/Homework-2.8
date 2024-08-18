@@ -17,6 +17,7 @@ public class Employee {
         this.department = department;
         this.salary = salary;
     }
+
     public String getLastName() {
         return lastName;
     }
@@ -26,7 +27,7 @@ public class Employee {
     }
 
     public int hashCode() {
-        return Objects.hash(firstName, lastName, department,salary);
+        return Objects.hash(firstName, lastName, department, salary);
     }
 
     public boolean equals(Object a) {
@@ -34,12 +35,13 @@ public class Employee {
         if (a == null || getClass() != a.getClass()) return false;
         Employee employee = (Employee) a;
         return Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(lastName, employee.lastName)&&
-                department==employee.department&&
-                Double.compare(salary,employee.salary)==0;
+                Objects.equals(lastName, employee.lastName) &&
+                department == employee.department &&
+                Double.compare(salary, employee.salary) == 0;
     }
+
     public String toString() {
-        return firstName+" "+lastName+" "+"department: "+department+" salary: "+salary;
+        return firstName + " " + lastName + " " + "department: " + department + " salary: " + salary;
     }
 
     public double getSalary() {
