@@ -5,6 +5,8 @@ import pro.sky.skyproempl.Employee;
 import pro.sky.skyproempl.Exception.EmployeeAlreadyAddedException;
 import pro.sky.skyproempl.Exception.EmployeeNotFoundException;
 import pro.sky.skyproempl.Exception.EmployeeStorageIsFullException;
+import pro.sky.skyproempl.Validation.ParameterValidator;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -15,8 +17,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final int employeeAmount;
 
     private Map<String, Employee> employees;
+    private ParameterValidator parameterValidator;
 
-    public EmployeeServiceImpl() {
+    public EmployeeServiceImpl(ParameterValidator parameterValidator) {
+        this.parameterValidator = parameterValidator;
         this.employeeAmount = 12;
         this.employees = new HashMap<>(Map.of(
                 "ОльгаКарманова", new Employee("Ольга", "Карманова", 3, 51200),
@@ -59,6 +63,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.size() >= employeeAmount) {
             throw new EmployeeStorageIsFullException();
         }
+        parameterValidator.checkParameter(firstName);
+        parameterValidator.checkParameter(lastName);
+        firstName = parameterValidator.formatParameter(firstName);
+        lastName = parameterValidator.formatParameter(lastName);
         Employee e = new Employee(firstName, lastName, department, salary);
         if (employees.containsValue(e)) {
             throw new EmployeeAlreadyAddedException();
