@@ -1,4 +1,4 @@
-package pro.sky.skyproempl;
+package pro.sky.skyproempl.model;
 
 
 import java.lang.String;
@@ -8,10 +8,10 @@ public class Employee {
 
     private String firstName;
     private String lastName;
-    private int department;
-    private double salary;
+    private Integer department;
+    private Double salary;
 
-    public Employee(String firstName, String lastName, int department, double salary) {
+    public Employee(String firstName, String lastName, Integer department, Double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
@@ -34,25 +34,25 @@ public class Employee {
         if (this == a) return true;
         if (a == null || getClass() != a.getClass()) return false;
         Employee employee = (Employee) a;
-        return Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(lastName, employee.lastName) &&
-                department == employee.department &&
-                Double.compare(salary, employee.salary) == 0;
+        return Objects.equals(this.firstName, employee.firstName) &&
+                Objects.equals(this.lastName, employee.lastName) &&
+                Integer.compare(this.department, employee.department) == 0 &&
+                Double.compare(this.salary, employee.salary) == 0;
     }
 
     public String toString() {
         return firstName + " " + lastName + " " + "department: " + department + " salary: " + salary;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
-    public int getDepartment() {
+    public Integer getDepartment() {
         return department;
     }
 }

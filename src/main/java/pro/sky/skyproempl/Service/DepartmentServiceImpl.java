@@ -1,38 +1,50 @@
 package pro.sky.skyproempl.Service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import pro.sky.skyproempl.Employee;
+import pro.sky.skyproempl.Exception.DepartmentNotFoundException;
+import pro.sky.skyproempl.model.Employee;
 import pro.sky.skyproempl.Exception.EmployeeNotFoundException;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    private EmployeeServiceImpl employeeServiceImpl;
+    private final EmployeeServiceImpl employeeServiceImpl;
+
 
     public DepartmentServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
         this.employeeServiceImpl = employeeServiceImpl;
+
     }
 
-    public Employee maxSalaryByDepartment(int department) {
+    public Double sumSalaryByDepartment(Integer department) {
+        checkParameterDepartment(department);
+        Double sumSalary = 0.0;
+        for (int i = 0; i < getAllEmployeeByDepartment(department).size(); i++) {
+            sumSalary += getAllEmployeeByDepartment(department).get(i).getSalary();
+        }
+        return sumSalary;
+    }
+
+    public Employee maxSalaryByDepartment(Integer department) {
+        checkParameterDepartment(department);
         return getAllEmployeeByDepartment(department)
                 .stream()
                 .max(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(() -> new EmployeeNotFoundException());
     }
 
-    public Employee minSalaryByDepartment(int department) {
+    public Employee minSalaryByDepartment(Integer department) {
+        checkParameterDepartment(department);
         return getAllEmployeeByDepartment(department)
                 .stream()
                 .min(Comparator.comparingDouble(Employee::getSalary))
                 .orElseThrow(() -> new EmployeeNotFoundException());
     }
 
-    public List<Employee> getAllEmployeeByDepartment(int department) {
+    public List<Employee> getAllEmployeeByDepartment(Integer department) {
+        checkParameterDepartment(department);
         return employeeServiceImpl.findAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == department)
@@ -44,4 +56,12 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .stream()
                 .collect(Collectors.groupingBy(employee -> employee.getDepartment()));
     }
+
+    public void checkParameterDepartment(Integer department) {
+        if (!employeeServiceImpl.getDepartments().contains(department)) {
+            throw new DepartmentNotFoundException();
+        }
+    }
+
+
 }

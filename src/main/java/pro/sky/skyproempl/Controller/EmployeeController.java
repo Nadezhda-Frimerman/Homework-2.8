@@ -4,11 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.skyproempl.Employee;
-import pro.sky.skyproempl.Service.EmployeeService;
+import pro.sky.skyproempl.model.Employee;
 import pro.sky.skyproempl.Service.EmployeeServiceImpl;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -20,7 +18,7 @@ public class EmployeeController {
         this.employeeServiceImpl = employeeServiceImpl;
     }
 
-    @GetMapping(path = "/print")
+    @GetMapping("/print")
     public List<Employee> allEmployees() {
         return employeeServiceImpl.findAllEmployees();
     }
@@ -28,8 +26,8 @@ public class EmployeeController {
     @GetMapping("/add")
     public void addEmployee(@RequestParam(value = "firstName") String firstName,
                             @RequestParam(value = "lastName") String lastName,
-                            @RequestParam(value = "department") int department,
-                            @RequestParam(value = "salary") double salary) {
+                            @RequestParam(value = "department") Integer department,
+                            @RequestParam(value = "salary") Double salary) {
         employeeServiceImpl.addEmployee(firstName, lastName, department, salary);
     }
 
